@@ -8,7 +8,7 @@ coverage
 *.sublime-workspace
 *.log
 yarn.lock
-build
+#build
 dist
 docs
 shrinkwrap.yaml
