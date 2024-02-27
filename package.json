@@ -64,7 +64,7 @@
   "dependencies": {
     "@poppinss/inspect": "^1.0.1",
     "@poppinss/macroable": "^1.0.1",
-    "@poppinss/utils": "^6.7.2",
+    "@poppinss/utils": "git+https://github.com/ericingram/poppinss-utils.git",
     "classnames": "^2.5.1",
     "edge-error": "^4.0.1",
     "edge-lexer": "^6.0.1",

@@ -8,7 +8,7 @@
  */
 
 import { sep } from 'node:path'
-import { EOL } from 'node:os'
+// import { EOL } from 'node:os'
 // @ts-ignore untyped module
 import stringify from 'js-stringify'
 
@@ -16,7 +16,7 @@ export const BASE_URL = new URL('./tmp/', import.meta.url)
 
 export function normalizeNewLines(value: string) {
   // eslint-disable-next-line @typescript-eslint/quotes
-  return value.replace(/\+=\s"\\n"/g, `+= ${EOL === '\n' ? `"\\n"` : `"\\r\\n"`}`)
+  return value.replace(/\+=\s"\\n"/g, `+= \n`) // ${EOL === '\n' ? `"\\n"` : `"\\r\\n"`}`)
 }
 
 export function normalizeFilename(basePath: string, value: string) {
