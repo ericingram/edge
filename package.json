@@ -69,7 +69,6 @@
     "edge-error": "^4.0.1",
     "edge-lexer": "^6.0.1",
     "edge-parser": "git+https://github.com/ericingram/edge-parser.git",
-    "fs-readdir-recursive": "^1.1.0",
     "he": "^1.2.0",
     "js-stringify": "^1.0.2",
     "property-information": "^6.4.1",

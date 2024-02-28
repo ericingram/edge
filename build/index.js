@@ -30,15 +30,13 @@ var Loader = class {
    * Reads the content of a template from the disk. An exception is raised
    * when file is missing or if `readFileSync` returns an error.
    */
-  #readTemplateContents(absPath) {
+  #readTemplateContents(_absPath) {
     return "";
   }
   /**
    * Returns a list of components for a given disk
    */
   #getDiskComponents(diskName) {
-    const componentsDirName = "components";
-    const diskBasePath = this.#mountedDirs.get(diskName);
     let files = diskName === "default" ? Array.from(this.#preRegistered.keys()).map((template) => {
       return {
         fileName: template,
@@ -59,7 +57,6 @@ var Loader = class {
    * Returns a list of templates for a given disk
    */
   #getDiskTemplates(diskName) {
-    const diskBasePath = this.#mountedDirs.get(diskName);
     let files = diskName === "default" ? Array.from(this.#preRegistered.keys()) : [];
     return files.map((file) => {
       const fileName = slash(file).replace(/\.edge$/, "");
