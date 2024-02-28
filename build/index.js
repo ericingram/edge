@@ -15,11 +15,8 @@ import {
 
 // src/loader.ts
 import { slash } from "@poppinss/utils";
-import { fileURLToPath } from "node:url";
 import string from "@poppinss/utils/string";
 import { join, isAbsolute } from "node:path";
-import readdirSync from "fs-readdir-recursive";
-import { existsSync, readFileSync } from "node:fs";
 var Loader = class {
   /**
    * List of mounted directories
@@ -34,15 +31,7 @@ var Loader = class {
    * when file is missing or if `readFileSync` returns an error.
    */
   #readTemplateContents(absPath) {
-    try {
-      return readFileSync(absPath, "utf-8");
-    } catch (error) {
-      if (error.code === "ENOENT") {
-        throw new Error(`Cannot resolve "${absPath}". Make sure the file exists`);
-      } else {
-        throw error;
-      }
-    }
+    return "";
   }
   /**
    * Returns a list of components for a given disk
@@ -56,17 +45,6 @@ var Loader = class {
         componentPath: template
       };
     }) : [];
-    if (existsSync(join(diskBasePath, componentsDirName))) {
-      files = files.concat(
-        readdirSync(join(diskBasePath, componentsDirName)).filter((file) => file.endsWith(".edge")).map((template) => {
-          const fileName = slash(template).replace(/\.edge$/, "");
-          return {
-            fileName,
-            componentPath: `${componentsDirName}/${fileName}`
-          };
-        })
-      );
-    }
     return files.map(({ fileName, componentPath }) => {
       const tagName = fileName.split("/").filter((segment, index) => {
         return index === 0 || segment !== "index";
@@ -83,9 +61,6 @@ var Loader = class {
   #getDiskTemplates(diskName) {
     const diskBasePath = this.#mountedDirs.get(diskName);
     let files = diskName === "default" ? Array.from(this.#preRegistered.keys()) : [];
-    if (existsSync(diskBasePath)) {
-      files = files.concat(readdirSync(join(diskBasePath)).filter((file) => file.endsWith(".edge")));
-    }
     return files.map((file) => {
       const fileName = slash(file).replace(/\.edge$/, "");
       return diskName !== "default" ? `${diskName}::${fileName}` : fileName;
@@ -171,7 +146,11 @@ var Loader = class {
    * ```
    */
   mount(diskName, dirPath) {
-    this.#mountedDirs.set(diskName, typeof dirPath === "string" ? dirPath : fileURLToPath(dirPath));
+    this.#mountedDirs.set(
+      diskName,
+      String(dirPath)
+      /*typeof dirPath === 'string' ? dirPath : fileURLToPath(dirPath)*/
+    );
   }
   /**
    * Remove the previously mounted dir.

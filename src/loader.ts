@@ -34,7 +34,7 @@ export class Loader implements LoaderContract {
    * Reads the content of a template from the disk. An exception is raised
    * when file is missing or if `readFileSync` returns an error.
    */
-  #readTemplateContents(absPath: string): string {
+  #readTemplateContents(_absPath: string): string {
     // Disabled node dependencies
     return ''
     /* try {
@@ -52,8 +52,8 @@ export class Loader implements LoaderContract {
    * Returns a list of components for a given disk
    */
   #getDiskComponents(diskName: string): ComponentsTree[0]['components'] {
-    const componentsDirName = 'components'
-    const diskBasePath = this.#mountedDirs.get(diskName)!
+    /* const componentsDirName = 'components'
+    const diskBasePath = this.#mountedDirs.get(diskName)! */
     let files =
       diskName === 'default'
         ? Array.from(this.#preRegistered.keys()).map((template) => {
@@ -102,7 +102,7 @@ export class Loader implements LoaderContract {
    * Returns a list of templates for a given disk
    */
   #getDiskTemplates(diskName: string): string[] {
-    const diskBasePath = this.#mountedDirs.get(diskName)!
+    /* const diskBasePath = this.#mountedDirs.get(diskName)! */
     let files = diskName === 'default' ? Array.from(this.#preRegistered.keys()) : []
 
     // Disabled node dependencies
