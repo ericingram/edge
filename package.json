@@ -1,5 +1,5 @@
 {
-  "name": "edge.js",
+  "name": "@swell/edge.js",
   "description": "Template engine",
   "version": "6.0.1",
   "engines": {
@@ -68,7 +68,7 @@
     "classnames": "^2.5.1",
     "edge-error": "^4.0.1",
     "edge-lexer": "^6.0.1",
-    "edge-parser": "^9.0.0",
+    "edge-parser": "git+https://github.com/ericingram/edge-parser.git",
     "fs-readdir-recursive": "^1.1.0",
     "he": "^1.2.0",
     "js-stringify": "^1.0.2",

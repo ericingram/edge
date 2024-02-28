@@ -8,11 +8,8 @@
  */
 
 import { slash } from '@poppinss/utils'
-import { fileURLToPath } from 'node:url'
 import string from '@poppinss/utils/string'
 import { join, isAbsolute } from 'node:path'
-import readdirSync from 'fs-readdir-recursive'
-import { existsSync, readFileSync } from 'node:fs'
 import type { ComponentsTree, LoaderContract, LoaderTemplate } from './types.js'
 
 /**
@@ -38,7 +35,9 @@ export class Loader implements LoaderContract {
    * when file is missing or if `readFileSync` returns an error.
    */
   #readTemplateContents(absPath: string): string {
-    try {
+    // Disabled node dependencies
+    return ''
+    /* try {
       return readFileSync(absPath, 'utf-8')
     } catch (error) {
       if (error.code === 'ENOENT') {
@@ -46,7 +45,7 @@ export class Loader implements LoaderContract {
       } else {
         throw error
       }
-    }
+    } */
   }
 
   /**
@@ -68,7 +67,8 @@ export class Loader implements LoaderContract {
     /**
      * Read disk files
      */
-    if (existsSync(join(diskBasePath, componentsDirName))) {
+    // Disabled node dependencies
+    /* if (existsSync(join(diskBasePath, componentsDirName))) {
       files = files.concat(
         readdirSync(join(diskBasePath, componentsDirName))
           .filter((file) => file.endsWith('.edge'))
@@ -80,7 +80,7 @@ export class Loader implements LoaderContract {
             }
           })
       )
-    }
+    } */
 
     return files.map(({ fileName, componentPath }) => {
       const tagName = fileName
@@ -105,9 +105,10 @@ export class Loader implements LoaderContract {
     const diskBasePath = this.#mountedDirs.get(diskName)!
     let files = diskName === 'default' ? Array.from(this.#preRegistered.keys()) : []
 
-    if (existsSync(diskBasePath)) {
+    // Disabled node dependencies
+    /* if (existsSync(diskBasePath)) {
       files = files.concat(readdirSync(join(diskBasePath)).filter((file) => file.endsWith('.edge')))
-    }
+    } */
 
     return files.map((file) => {
       const fileName = slash(file).replace(/\.edge$/, '')
@@ -200,7 +201,11 @@ export class Loader implements LoaderContract {
    * ```
    */
   mount(diskName: string, dirPath: string | URL): void {
-    this.#mountedDirs.set(diskName, typeof dirPath === 'string' ? dirPath : fileURLToPath(dirPath))
+    // Disabled node dependencies
+    this.#mountedDirs.set(
+      diskName,
+      String(dirPath) /*typeof dirPath === 'string' ? dirPath : fileURLToPath(dirPath)*/
+    )
   }
 
   /**

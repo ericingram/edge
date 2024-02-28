@@ -9,7 +9,6 @@
 
 import './assert_extend.js'
 import dedent from 'dedent-js'
-import { EOL } from 'node:os'
 import { join } from 'node:path'
 import { test } from '@japa/runner'
 
@@ -604,7 +603,7 @@ test.group('Edge | regression', () => {
       template: '{{{ nl2br(text) }}}',
     })
 
-    assert.equal(await edge.render('eval', { text: `Hello${EOL}world` }), 'Hello<br>world')
+    assert.equal(await edge.render('eval', { text: `Hello\nworld` }), 'Hello<br>world')
   })
 
   test('escape user input except the new lines', async ({ assert }) => {
@@ -620,7 +619,7 @@ test.group('Edge | regression', () => {
     })
 
     assert.equal(
-      await edge.render('eval', { text: `Hello${EOL}<strong>world</strong>` }),
+      await edge.render('eval', { text: `Hello\n<strong>world</strong>` }),
       'Hello<br>&lt;strong&gt;world&lt;/strong&gt;'
     )
   }).tags(['compat'])
