@@ -149,7 +149,9 @@ export class Template extends Macroable {
    * ```
    */
   render<T extends Promise<string> | string>(template: string, state: any): T {
+    console.log('before compile', template)
     let compiledTemplate = this.#compiler.compile(template)
+    console.log('compiled template', compiledTemplate)
     return this.#renderCompiled(compiledTemplate, state)
   }
 
